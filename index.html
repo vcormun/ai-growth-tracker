@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>AI &amp; Growth Scenario Tracker</title>
+<meta name="description" content="A living tracker that maps the measured AI automation rate onto the Jones & Tonetti (2026) growth-scenario spectrum." />
+<style>
+  :root{
+    --bg:#ffffff; --surface:#f6f5f1; --line:rgba(0,0,0,.12); --line2:rgba(0,0,0,.28);
+    --text:#1d1c1a; --muted:#5f5e5a; --hint:#8a8980;
+    --info-bg:#e6f1fb; --info-tx:#0c447c;
+    --warn-bg:#faeeda; --warn-tx:#854f0b;
+    --dang-bg:#fceaea; --dang-tx:#a32d2d;
+    --accent:#534ab7;
+  }
+  @media (prefers-color-scheme: dark){
+    :root{
+      --bg:#1f1e1c; --surface:#2a2926; --line:rgba(255,255,255,.14); --line2:rgba(255,255,255,.3);
+      --text:#f3f1ec; --muted:#b4b2a9; --hint:#8a8980;
+      --info-bg:#0c447c; --info-tx:#b5d4f4;
+      --warn-bg:#633806; --warn-tx:#fac775;
+      --dang-bg:#791f1f; --dang-tx:#f7c1c1;
+      --accent:#afa9ec;
+    }
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--text);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    line-height:1.6;}
+  .wrap{max-width:760px;margin:0 auto;padding:2.5rem 1.25rem 4rem;}
+  h1{font-size:26px;font-weight:600;margin:0 0 .25rem;}
+  .sub{color:var(--muted);font-size:15px;margin:0 0 1.75rem;}
+  h2{font-size:18px;font-weight:600;margin:2.25rem 0 .5rem;}
+  p{font-size:15px;}
+  a{color:var(--accent);}
+  code,.mono{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;}
+  .panel{background:var(--surface);border:.5px solid var(--line);border-radius:14px;padding:1.25rem 1.5rem;margin:1.5rem 0;}
+  .row{display:flex;align-items:center;gap:12px;margin:0 0 1rem;}
+  .row label{font-size:14px;color:var(--muted);min-width:235px;}
+  input[type=range]{flex:1;accent-color:var(--accent);}
+  .readout{font-size:14px;font-weight:600;min-width:46px;text-align:right;}
+  .fixed{font-size:12px;color:var(--hint);margin:.25rem 0 0;}
+  .cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;margin:1.25rem 0;}
+  .card{background:var(--bg);border:.5px solid var(--line);border-radius:10px;padding:1rem;}
+  .card .lbl{font-size:13px;color:var(--muted);}
+  .card .val{font-size:24px;font-weight:600;margin-top:2px;}
+  .pill{padding:3px 10px;border-radius:8px;font-size:15px;font-weight:600;}
+  .track{position:relative;height:46px;margin:1rem 0 .25rem;}
+  .track .bar{position:absolute;top:20px;left:0;right:0;height:6px;background:var(--bg);border:.5px solid var(--line);border-radius:3px;}
+  .track .knife{position:absolute;top:14px;height:24px;width:2px;background:var(--line2);}
+  .track .mark{position:absolute;top:9px;width:16px;height:16px;border-radius:50%;border:2px solid var(--bg);background:var(--text);transform:translateX(-8px);}
+  .track .anchor{position:absolute;top:30px;width:2px;height:9px;background:var(--hint);}
+  .axis{display:flex;justify-content:space-between;font-size:11px;color:var(--hint);}
+  .btns{display:flex;gap:8px;flex-wrap:wrap;margin:1rem 0 .5rem;}
+  button{font:inherit;font-size:13px;background:var(--bg);color:var(--text);border:.5px solid var(--line2);
+    border-radius:8px;padding:7px 12px;cursor:pointer;}
+  button:hover{background:var(--surface);}
+  .narr{font-size:13px;color:var(--muted);margin:.25rem 0 0;min-height:2.4em;}
+  table{width:100%;border-collapse:collapse;font-size:14px;margin:.5rem 0;}
+  th,td{text-align:left;padding:8px 6px;border-bottom:.5px solid var(--line);}
+  th{color:var(--muted);font-weight:600;}
+  .foot{font-size:12.5px;color:var(--hint);margin-top:2.5rem;border-top:.5px solid var(--line);padding-top:1rem;}
+  .eq{background:var(--surface);border:.5px solid var(--line);border-radius:8px;padding:.6rem .9rem;font-size:15px;display:inline-block;}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>AI &amp; growth scenario tracker</h1>
+  <p class="sub">Where does today's measured AI automation rate place us on the Jones &amp; Tonetti (2026) growth-explosion spectrum?</p>
+
+  <p>The macroeconomics of AI can be reduced, in the Jones &amp; Tonetti task-based model, to a single statistic: the <strong>automation rate</strong> <span class="mono">x₀</span> &mdash; the share of total labor cost accounted for by tasks newly handed to capital each year. That one number determines the degree of dynamic increasing returns <span class="mono">Φ</span>, and <span class="mono">Φ</span> decides whether growth stays balanced or accelerates toward a singularity. Jones &amp; Tonetti could not observe <span class="mono">x₀</span>, so they elicited it from frontier LLMs. The <a href="https://www.anthropic.com/economic-index">Anthropic Economic Index</a> measures it from real usage. This tracker turns that measurement into the scenario picture, and is designed to refresh with each Economic Index release.</p>
+
+  <div class="panel" role="group" aria-label="Scenario calculator">
+    <div class="row">
+      <label for="x0">Automation rate <span class="mono">x₀</span> (% of labor cost / yr)</label>
+      <input type="range" id="x0" min="0" max="8" step="0.1" value="2.0" />
+      <span class="readout" id="x0out">2.0%</span>
+    </div>
+    <div class="row">
+      <label for="sig">Task substitution <span class="mono">σ</span> (weak links if &lt; 1)</label>
+      <input type="range" id="sig" min="0.1" max="0.4" step="0.05" value="0.2" />
+      <span class="readout" id="sigout">0.20</span>
+    </div>
+    <p class="fixed">Fixed at the JT calibration: labor-task productivity growth ψ̇<sub>ℓ</sub> = 0.5%/yr, trend growth g<sub>Y0</sub> = 3%/yr, population growth n = 1%/yr.</p>
+
+    <div class="cards">
+      <div class="card"><div class="lbl">Dynamic returns Φ</div><div class="val" id="phi">1.00</div></div>
+      <div class="card"><div class="lbl">Regime</div><div class="val"><span class="pill" id="regime">&mdash;</span></div></div>
+      <div class="card"><div class="lbl" id="outlabel">Long-run growth</div><div class="val" id="outval">&mdash;</div></div>
+    </div>
+
+    <div class="track" aria-hidden="true">
+      <div class="bar"></div>
+      <div class="knife" id="kel"></div>
+      <div class="anchor" id="a1"></div>
+      <div class="anchor" id="a2"></div>
+      <div class="mark" id="mark"></div>
+    </div>
+    <div class="axis"><span>Φ = 0.5</span><span>Φ = 1 (knife-edge)</span><span>Φ = 2.5</span></div>
+
+    <div class="btns">
+      <button id="b1">JT: private business (x₀ = 2.0%)</button>
+      <button id="b2">JT: "Moore's Law" (x₀ = 5.2%)</button>
+    </div>
+    <p class="narr" id="narr"></p>
+  </div>
+
+  <h2>How it works</h2>
+  <p>Jones &amp; Tonetti show that the degree of dynamic increasing returns maps to observable data through one approximation:</p>
+  <p><span class="eq">Φ ≈ ( ψ̇<sub>ℓ</sub> + x₀ / (1 − σ) ) / g<sub>Y0</sub></span></p>
+  <p>When <span class="mono">Φ &lt; 1</span>, growth is semi-endogenous and converges to a balanced path at rate <span class="mono">g = Φn / (1 − Φ)</span>. At <span class="mono">Φ = 1</span> the model is on the knife-edge of endogenous growth. When <span class="mono">Φ &gt; 1</span>, income reaches infinity in finite time &mdash; though "weak links" (σ well below 1) keep even the explosive case slow.</p>
+
+  <h2>Reference scenarios</h2>
+  <table>
+    <thead><tr><th>Scenario</th><th>x₀</th><th>Source</th></tr></thead>
+    <tbody>
+      <tr><td>JT private business (LLM-elicited)</td><td>2.0%</td><td>Jones &amp; Tonetti 2026, Table 4</td></tr>
+      <tr><td>JT computers / "Moore's Law everywhere" (elicited)</td><td>5.2%</td><td>Jones &amp; Tonetti 2026, Table 4</td></tr>
+      <tr><td>AEI-measured, software/computing (illustrative)</td><td id="aei-x0">pending</td><td>Anthropic Economic Index &mdash; level-1 pipeline</td></tr>
+    </tbody>
+  </table>
+
+  <div class="foot">
+    <p>Illustrative tool, not a forecast. The dial implements Jones &amp; Tonetti's published approximation; the headline scenarios use their elicited automation rates. The AEI-measured x₀ is computed separately and is subject to the identification caveats in the accompanying proposal (penetration scaling, short sample, occupation selection). Model: Jones, C. I. &amp; Tonetti, C. (2026), <em>Past Automation and Future A.I.: How Weak Links Tame the Growth Explosion.</em> Data: <a href="https://huggingface.co/datasets/Anthropic/EconomicIndex">Anthropic Economic Index</a>.</p>
+  </div>
+</div>
+
+<script>
+(function(){
+  // Mirrors data/estimate.json. Edit there + here together when the AEI number lands.
+  var psiL=0.5, gY0=3.0, n=1.0;
+  var x0=document.getElementById('x0'), sig=document.getElementById('sig');
+  function phiOf(x,s){ return (psiL + x/(1-s))/gY0; }
+  function pos(phi){ return Math.max(0,Math.min(100,(phi-0.5)/2.0*100)); }
+  function r(v,d){ return (Math.round(v*Math.pow(10,d))/Math.pow(10,d)).toFixed(d); }
+  function paint(){
+    var x=parseFloat(x0.value), s=parseFloat(sig.value), phi=phiOf(x,s);
+    document.getElementById('x0out').textContent=r(x,1)+'%';
+    document.getElementById('sigout').textContent=r(s,2);
+    document.getElementById('phi').textContent=r(phi,2);
+    var reg=document.getElementById('regime'), ol=document.getElementById('outlabel'),
+        ov=document.getElementById('outval'), nr=document.getElementById('narr');
+    if(phi<0.99){
+      var g=phi*n/(1-phi);
+      reg.textContent='Semi-endogenous'; reg.style.background='var(--info-bg)'; reg.style.color='var(--info-tx)';
+      ol.textContent='Long-run growth'; ov.textContent='~'+r(g,0)+'%/yr';
+      nr.textContent='Balanced growth path. As Φ nears 1 the long-run rate is high, but the transition takes centuries — acceleration is real yet slow because weak links bind.';
+    } else if(phi<=1.01){
+      reg.textContent='Knife-edge'; reg.style.background='var(--warn-bg)'; reg.style.color='var(--warn-tx)';
+      ol.textContent='Regime'; ov.textContent='endogenous';
+      nr.textContent='Φ ≈ 1: the boundary between balanced and explosive growth — roughly JT’s "continuation of history" calibration.';
+    } else {
+      var t=1/((phi-1)*(gY0/100));
+      reg.textContent='Explosive'; reg.style.background='var(--dang-bg)'; reg.style.color='var(--dang-tx)';
+      ol.textContent='Order-of-magnitude to singularity'; ov.textContent='~'+r(t,0)+' yrs';
+      nr.textContent='Φ > 1: income goes to infinity in finite time. The horizon is an illustrative order of magnitude at current trend growth; JT’s full model accelerates faster as x₀ rises.';
+    }
+    document.getElementById('mark').style.left=pos(phi)+'%';
+    document.getElementById('kel').style.left=pos(1.0)+'%';
+    document.getElementById('a1').style.left=pos(phiOf(2.0,s))+'%';
+    document.getElementById('a2').style.left=pos(phiOf(5.2,s))+'%';
+  }
+  x0.addEventListener('input',paint); sig.addEventListener('input',paint);
+  document.getElementById('b1').onclick=function(){x0.value=2.0;paint();};
+  document.getElementById('b2').onclick=function(){x0.value=5.2;paint();};
+  paint();
+})();
+</script>
+</body>
+</html>

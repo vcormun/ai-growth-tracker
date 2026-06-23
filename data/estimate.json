@@ -1,0 +1,36 @@
+{
+  "model": "Jones & Tonetti (2026), Past Automation and Future A.I.",
+  "phi_formula": "Phi ~= (psi_l + x0/(1 - sigma)) / gY0",
+  "fixed_calibration": {
+    "psi_l_pct_per_yr": 0.5,
+    "gY0_pct_per_yr": 3.0,
+    "n_pct_per_yr": 1.0,
+    "sigma_default": 0.2
+  },
+  "scenarios": [
+    {
+      "id": "jt_private_business",
+      "label": "JT private business (LLM-elicited)",
+      "x0_pct_per_yr": 2.0,
+      "phi_at_default_sigma": 1.0,
+      "source": "Jones & Tonetti 2026, Table 4 / eq. for Phi"
+    },
+    {
+      "id": "jt_moores_law",
+      "label": "JT computers / 'Moore's Law everywhere' (LLM-elicited)",
+      "x0_pct_per_yr": 5.2,
+      "phi_at_default_sigma": 2.33,
+      "source": "Jones & Tonetti 2026, Table 4 / eq. for Phi"
+    },
+    {
+      "id": "aei_software_illustrative",
+      "label": "AEI-measured, software/computing (illustrative)",
+      "x0_pct_per_yr": null,
+      "phi_at_default_sigma": null,
+      "status": "pending level-1 pipeline (AEI automation shares x OEWS weights, flows-only)",
+      "source": "Anthropic Economic Index, release TBD"
+    }
+  ],
+  "updated": "2026-06-23",
+  "notes": "Illustrative tool. Headline scenarios use JT's elicited automation rates. The AEI-measured x0 is computed separately and carries the identification caveats documented in the proposal."
+}
