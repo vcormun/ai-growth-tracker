@@ -25,12 +25,20 @@
     {
       "id": "aei_software_illustrative",
       "label": "AEI-measured, software/computing (illustrative)",
-      "x0_pct_per_yr": null,
-      "phi_at_default_sigma": null,
-      "status": "pending level-1 pipeline (AEI automation shares x OEWS weights, flows-only)",
-      "source": "Anthropic Economic Index, release TBD"
+      "x0_pct_per_yr": 3.7,
+      "phi_at_default_sigma": 1.69,
+      "range_x0_pct_per_yr": [2.2, 12.3],
+      "range_phi": [1.07, 5.28],
+      "inputs": {
+        "automation_share_a": 0.43,
+        "automation_share_source": "AEI release_2025_02_10 automation_vs_augmentation.csv: (directive+feedback loop)/(directive+feedback loop+task iteration+learning+validation)",
+        "penetration_growth_dpi_per_yr": 0.08,
+        "penetration_growth_status": "ASSUMPTION (unmeasured) - the key research input",
+        "x0_formula": "x0 = -ln(1 - a*dpi)"
+      },
+      "source": "Anthropic Economic Index (Feb 2025) + flows pipeline; see methodology.md"
     }
   ],
   "updated": "2026-06-23",
-  "notes": "Illustrative tool. Headline scenarios use JT's elicited automation rates. The AEI-measured x0 is computed separately and carries the identification caveats documented in the proposal."
+  "notes": "Illustrative tool. Headline scenarios use JT's elicited automation rates. The AEI base case uses the measured automation share a=0.43 and an ASSUMED penetration-growth dpi=0.08/yr; dpi is the unmeasured driver and the central caveat (see proposal section 4.3). Reproduce with compute_x0.py."
 }

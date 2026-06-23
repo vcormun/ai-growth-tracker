@@ -14,8 +14,8 @@ with their calibration `ψ̇_ℓ = 0.5%/yr`, `g_Y0 = 3%/yr`, `n = 1%/yr`, `σ = 
 
 ## Status
 
-- **Live now:** the interactive `Φ` engine and JT's two reference scenarios.
-- **Pending:** the AEI-measured `x₀` for software/computing (the "level-1" estimate — AEI automation shares × OEWS labor-cost weights, flows-only assumption). Lands in `data/estimate.json` and the reference table when computed. See the accompanying research proposal for the identification caveats (penetration scaling, short sample, occupation selection).
+- **Live now:** the interactive `Φ` engine, JT's two reference scenarios, and a **level-1 illustrative AEI estimate** — base `x₀ ≈ 3.7%/yr` (`Φ ≈ 1.7`), built from the AEI-measured automation share `a ≈ 0.43` (Feb 2025) and an assumed penetration-growth `Δπ ≈ 8 pp/yr`. Reproduce with `compute_x0.py`; full derivation and the 2–12%/yr range in `methodology.md`.
+- **Next (level 2):** replace the assumed `Δπ` with a measured penetration series, use O\*NET task statements as the partition and OEWS×O\*NET labor-cost weights, and add the augmentation→`ψ̇_ℓ` channel. See the accompanying research proposal for the identification caveats (penetration scaling, short sample, occupation selection).
 
 ## Run locally
 
