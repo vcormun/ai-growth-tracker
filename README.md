@@ -2,7 +2,7 @@
 
 A living, single-page tracker that maps the **measured AI automation rate** onto the growth-scenario spectrum of Jones & Tonetti (2026), *Past Automation and Future A.I.: How Weak Links Tame the Growth Explosion*.
 
-**What it does.** The macroeconomics of AI, in the JT task-based model, collapses to one statistic — the automation rate `x₀` (the share of total labor cost accounted for by tasks newly handed to capital each year). `x₀` pins down the degree of dynamic increasing returns `Φ`, and `Φ` decides whether growth stays balanced (`Φ < 1`), sits on the knife-edge (`Φ = 1`), or explodes (`Φ > 1`). JT could not observe `x₀`, so they elicited it from frontier LLMs. The [Anthropic Economic Index](https://www.anthropic.com/economic-index) measures it from real usage. This tool turns that measurement into the scenario picture.
+**What it does.** The macroeconomics of AI, in the JT task-based model, collapses to one statistic — the automation rate `x₀` (the share of total labor cost accounted for by tasks newly handed to capital each year). `x₀` pins down the degree of dynamic increasing returns `Φ`, and `Φ` decides whether growth stays balanced (`Φ < 1`), sits on the knife-edge (`Φ = 1`), or explodes (`Φ > 1`). JT could not observe `x₀`, so they elicited it from frontier LLMs. The [Anthropic Economic Index](https://www.anthropic.com/economic-index) instead measures what AI actually does, task by task — the ingredient they lacked. This tool turns that measurement into the scenario picture.
 
 **The engine.** Jones & Tonetti's published approximation:
 

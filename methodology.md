@@ -1,6 +1,6 @@
 # Methodology — the level-1 illustrative AEI estimate of x₀
 
-This documents exactly how the "AEI-measured, software/computing (illustrative)" number on the tracker is produced. It is a **level-1 proof-of-concept**, not the final identified estimate. Everything here is reproducible with `compute_x0.py`.
+This documents exactly how the "AEI-measured, economy-wide (illustrative)" number on the tracker is produced. It is a **level-1 proof-of-concept**, not the final identified estimate. Everything here is reproducible with `compute_x0.py`.
 
 ## What we are estimating
 

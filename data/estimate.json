@@ -24,7 +24,7 @@
     },
     {
       "id": "aei_software_illustrative",
-      "label": "AEI-measured, software/computing (illustrative)",
+      "label": "AEI-measured, economy-wide (illustrative)",
       "x0_pct_per_yr": 3.7,
       "phi_at_default_sigma": 1.69,
       "range_x0_pct_per_yr": [2.2, 12.3],
